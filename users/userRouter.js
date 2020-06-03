@@ -25,7 +25,12 @@ router.get('/', (req, res) => {
   })
 }); //working
 
-router.get('/:id', (req, res) => {
+// router.get("/:id", validateUserId, (req, res) => {
+//   res.status(200).json(req.user);
+//   console.log(req.user)
+// })
+
+router.get('/:id', validateUserId, (req, res) => {
   Users.getById(req.params.id)
   .then(user => {
     res.status(200).json(user)
@@ -61,7 +66,14 @@ router.put('/:id', (req, res) => {
 
 
 function validateUserId(req, res, next) {
-  // do your magic!
+  Users.getById(req.params.id)
+  .then(user => {
+    if (user) {
+      next();
+    } else {
+      res.status(404).json({error: "User ID not found"})
+    }
+  })
 }
 
 function validateUser(req, res, next) {
