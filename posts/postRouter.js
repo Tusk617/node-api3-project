@@ -36,7 +36,7 @@ router.put('/:id', (req, res) => {
     console.log(newPost)
     res.status(200).json(changes)
   })
-});
+}); //working
 
 // custom middleware
 

@@ -1,34 +1,61 @@
 const express = require('express');
 
 const router = express.Router();
+const Users = require("./userDb.js")
 
 router.post('/', (req, res) => {
-  // do your magic!
-});
+  Users.insert(req.body)
+  .then(newUser => {
+    res.status(200).json(newUser);
+  })
+}); //working
 
 router.post('/:id/posts', (req, res) => {
-  // do your magic!
-});
+  const newPost = req.body
+  Users.insert(req.params.id, newPost)
+  .then(post => {
+    res.status(200).json(post)
+  })
+}); //still needs work
 
 router.get('/', (req, res) => {
-  // do your magic!
-});
+  Users.get(req.query)
+  .then(users => {
+    res.status(200).json(users)
+  })
+}); //working
 
 router.get('/:id', (req, res) => {
-  // do your magic!
-});
+  Users.getById(req.params.id)
+  .then(user => {
+    res.status(200).json(user)
+  })
+}); //working
 
 router.get('/:id/posts', (req, res) => {
-  // do your magic!
-});
+  Users.getUserPosts(req.params.id)
+  .then(post => {
+    res.status(200).json(post);
+  })
+}); //working
 
 router.delete('/:id', (req, res) => {
-  // do your magic!
-});
+  Users.getById(req.params.id)
+  .then(user => {
+    Users.remove(req.params.id)
+    .then(() => {
+      res.status(200).json(user);
+    })
+  })
+}); //working
 
 router.put('/:id', (req, res) => {
-  // do your magic!
-});
+  const changes = req.body;
+  Users.update(req.params.id, changes)
+  .then(() => {
+    res.status(200).json(changes)
+  })
+}); //working
 
 //custom middleware
 
