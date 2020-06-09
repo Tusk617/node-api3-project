@@ -8,6 +8,12 @@ server.get('/', (req, res) => {
 
 //custom middleware
 
-function logger(req, res, next) {}
+function logger(req, res, next) {
+  console.log(`Request type: ${req.method}`)
+  console.log(`URL: ${req.url}`)
+  console.log(Date())
+  next();
+}
+// server.use(logger);
 
 module.exports = server;
